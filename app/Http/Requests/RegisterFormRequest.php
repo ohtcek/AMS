@@ -25,8 +25,14 @@ class RegisterFormRequest extends FormRequest
     {
         return [
             //return [
-            'over_name' => 'min:4|max:50',
-            'post_body' => 'min:10|max:500',
+            'over_name' => 'required|min:3',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'over_name.required' => '入力は必須です。',
+            'over_name.min' => '文字数は3文字以内です。',
         ];
     }
 }
