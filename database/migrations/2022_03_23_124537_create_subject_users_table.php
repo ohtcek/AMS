@@ -14,10 +14,13 @@ class CreateSubjectUsersTable extends Migration
     public function up()
     {
         Schema::create('subject_users', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement()->comment('id');
-            $table->integer('user_id')->comment('ユーザーid');
-            $table->integer('subject_id')->comment('選択科目id');
-            $table->timestamp('created_at')->nullable()->comment('登録日時');
+            $table->bigIncrements('id')->comment('id');
+            $table->unsignedBigInteger('user_id')->comment('ユーザーid');
+            $table->unsignedBigInteger('subject_id')->comment('選択科目id');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }
 
