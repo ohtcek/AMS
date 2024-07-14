@@ -21,7 +21,6 @@ class UserSubjectTableSeeder extends Seeder
         $subject2 = Subject::where('subject', '数学')->first();
         $subject3 = Subject::where('subject', '英語')->first();
 
-        // ユーザーと科目の関連付け
         if ($user && $subject1 && $subject2 && $subject3) {
             $user->subjects()->attach([$subject1->id, $subject2->id, $subject3->id]);
         }

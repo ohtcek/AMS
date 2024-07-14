@@ -13,18 +13,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            [
-                'over_name' => '大畠',
-                'under_name' => 'うるちゃん',
-                'over_name_kana' => 'オオハタ',
-                'under_name_kana' => 'ウルチャン',
-                'mail_address' => 'tropius09@gmail.com',
-                'sex' => '2',
-                'birth_day' => '1994-12-11',
-                'role' => User::ROLE_ADMIN,
-                'password' => bcrypt('0000')
-            ]
+        $user = User::firstOrCreate([
+            'mail_address' => 'tropius09@gmail.com',
+        ], [
+            'over_name' => '大畠',
+            'under_name' => 'うるちゃん',
+            'over_name_kana' => 'オオハタ',
+            'under_name_kana' => 'ウルチャン',
+            'sex' => 2,
+            'birth_day' => '1994-12-11',
+            'role' => User::ROLE_ADMIN,
+            'password' => bcrypt('0000')
         ]);
     }
 }
