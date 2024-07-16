@@ -19,8 +19,8 @@ class CreateSubjectUsersTable extends Migration
             $table->unsignedBigInteger('subject_id')->comment('選択科目id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }
 
