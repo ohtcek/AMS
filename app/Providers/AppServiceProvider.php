@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+// これ入れないと使用できない
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,5 +38,6 @@ class AppServiceProvider extends ServiceProvider
 
             return checkdate($month, $day, $year);
         });
+        // このバリデーションで、日付の複合ができる？
     }
 }

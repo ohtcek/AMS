@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +23,12 @@
       <p><a href="{{ route('top.show') }}">トップ</a></p>
       <p><a href="/logout">ログアウト</a></p>
       <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
-      <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
-      <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
-      <p><a href="{{ route('post.show') }}">掲示板</a></p>
-      <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
-      @show
+      @if (Auth::check() && Auth::user()->role >= 1 && Auth::user()->role <= 3) <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
+        <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
+        @endif
+        <p><a href="{{ route('post.show') }}">掲示板</a></p>
+        <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
+        @show
     </div>
     <div class="main-container">
       @yield('content')
@@ -38,4 +40,5 @@
   <script src="{{ asset('js/user_search.js') }}" rel="stylesheet"></script>
   <script src="{{ asset('js/calendar.js') }}" rel="stylesheet"></script>
 </body>
+
 </html>
