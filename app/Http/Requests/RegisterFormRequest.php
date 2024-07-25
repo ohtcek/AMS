@@ -16,10 +16,21 @@ class RegisterFormRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $date_time = sprintf('%04d-%02d-%02d', $this->old_year, $this->old_month, $this->old_day);
+        // 年月日をsprintf関数を使って結合する→$date_timeに定義する　birthdayがキー
+        $this->merge([
+            'birthday' => $date_time,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
+     *
+     *
      */
     public function rules()
     {
@@ -36,21 +47,9 @@ class RegisterFormRequest extends FormRequest
             'old_day' => 'required|between:1,31',
             'role' => 'required|in:1,2,3,4',
             'password' => 'required|string|min:8|max:30|confirmed',
-            'birth_date' => 'valid_date'
+            // 'birth_date' => 'valid_date',
+            'birthday' => 'before:now|date_format:Y-m-d'
         ];
-    }
-
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $year = $this->old_year;
-            $month = $this->old_month;
-            $day = $this->old_day;
-
-            if (!checkdate($month, $day, $year)) {
-                $validator->errors()->add('old_day', '正しい日付を入力してください。');
-            }
-        });
     }
 
     public function messages()
@@ -93,7 +92,8 @@ class RegisterFormRequest extends FormRequest
             'password.min' => 'パスワードは8文字以上です。',
             'password.max' => 'パスワードは30文字以内です。',
             'password.confirmed' => 'パスワードと確認用パスワードが一致しません。',
-            'birth_date.valid_date' => '有効な日付を入力してください。'
+            'birthday.date_format' => '有効な日付を入力してください。',
+            'birthday.before' => '過去の日付を入力してください。',
         ];
     }
 }
