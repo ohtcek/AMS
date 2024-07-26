@@ -48,7 +48,7 @@ class RegisterFormRequest extends FormRequest
             'role' => 'required|in:1,2,3,4',
             'password' => 'required|string|min:8|max:30|confirmed',
             // 'birth_date' => 'valid_date',
-            'birthday' => 'required|date|before:now|after:2000'
+            'birthday' => 'required|date|after:"2000-01-01"|before:"now"'
         ];
     }
 
