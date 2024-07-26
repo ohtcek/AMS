@@ -42,13 +42,13 @@ class RegisterFormRequest extends FormRequest
             'under_name_kana' => 'required|string|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u|min:1|max:30',
             'mail_address' => 'required|email|unique:users|min:1|max:100',
             'sex' => 'required|in:1,2,3',
-            'old_year' => 'required|integer|between:2000,' . date('Y'),
-            'old_month' => 'required|between:1,12',
-            'old_day' => 'required|between:1,31',
+            // 'old_year' => 'required|integer|between:2000,' . date('Y'),
+            // 'old_month' => 'required|between:1,12',
+            // 'old_day' => 'required|between:1,31',
             'role' => 'required|in:1,2,3,4',
             'password' => 'required|string|min:8|max:30|confirmed',
             // 'birth_date' => 'valid_date',
-            'birthday' => 'before:now|date_format:Y-m-d'
+            'birthday' => 'required|date|before:now|after:2000'
         ];
     }
 
@@ -92,8 +92,10 @@ class RegisterFormRequest extends FormRequest
             'password.min' => 'パスワードは8文字以上です。',
             'password.max' => 'パスワードは30文字以内です。',
             'password.confirmed' => 'パスワードと確認用パスワードが一致しません。',
-            'birthday.date_format' => '有効な日付を入力してください。',
+            'birthday.required' => '日付は必須項目です。',
+            'birthday.date' => '有効な日付を入力してください。',
             'birthday.before' => '過去の日付を入力してください。',
+            'birthday.after' => '日付は2000年以降である必要があります。',
         ];
     }
 }
