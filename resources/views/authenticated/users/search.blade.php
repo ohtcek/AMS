@@ -45,7 +45,12 @@
       </div>
       <div>
         @if($user->role == 4)
-        <span>選択科目 : </span><span>@foreach($user->subjects as $subject)
+        <span>選択科目 : </span><span>
+          @foreach($user->subjects as $subject)
+          <!-- $user→userモデル　7行目のusers as userを使ってるから使える
+           ？その中のsubjects as $subjectはmリレーションでusersモデルにsubjectsを記述してるから書ける
+             <!-- usersのforeach内だから使える　　 --> -->
+          <!-- profile.blade.phpの選択科目の箇所と同じ記述で表示できた。同じusers内なので、$users->のsubjectカラムで表示可能 -->
           <span>{{ $subject->subject }}</span>
           @endforeach</span>
         @endif
@@ -93,6 +98,13 @@
           </div>
           <div class="selected_engineer">
             <label>選択科目</label>
+            @foreach($subjects as $subject)
+            <div>
+              <input type="checkbox" name="subject[]" value="{{ $subject->id }}" form="userSearchRequest">
+              <label>{{ $subject->subject }}</label>
+              <!-- databaseにあるすべてを表示させたいからlabelの書き方(性別とは違う書き方) -->
+            </div>
+            @endforeach
           </div>
         </div>
       </div>

@@ -73,6 +73,9 @@ class User extends Authenticatable
     public function subjects()
     {
         return $this->belongsToMany(Subjects::class, 'subject_users', 'user_id', 'subject_id');
+        // classのところApp\Models\Users\Subjectsでも行けた
+        //         ※belongsToMany('多対多の相手側のクラス名…ClassName::class',
+        // '中間テーブルの名前',　'中間テーブル外部キー名', '中間テーブル外部キー名')
     }
 
     // いいねしているかどうか
