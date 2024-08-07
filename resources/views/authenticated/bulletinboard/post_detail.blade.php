@@ -55,15 +55,22 @@
   </div>
 </div>
 <div class="modal js-modal">
+  <!-- 投稿の編集 -->
   <div class="modal__bg js-modal-close"></div>
   <div class="modal__content">
     <form action="{{ route('post.edit') }}" method="post">
       <div class="w-100">
         <div class="modal-inner-title w-50 m-auto">
           <input type="text" name="post_title" placeholder="タイトル" class="w-100">
+          @if($errors->first('post_title'))
+          <span class="error_message">{{ $errors->first('post_title') }}</span>
+          @endif
         </div>
         <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
           <textarea placeholder="投稿内容" name="post_body" class="w-100"></textarea>
+          @if($errors->first('post_body'))
+          <span class="error_message">{{ $errors->first('post_body') }}</span>
+          @endif
         </div>
         <div class="w-50 m-auto edit-modal-btn d-flex">
           <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
