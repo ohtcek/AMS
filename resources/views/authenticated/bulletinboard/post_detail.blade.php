@@ -6,6 +6,12 @@
       <div class="p-3">
         <div class="detail_inner_head">
           <div>
+            @if($errors->first('post_title'))
+            <span class="error_message">{{ $errors->first('post_title') }}</span>
+            @endif<br>
+            @if($errors->first('post_body'))
+            <span class="error_message">{{ $errors->first('post_body') }}</span>
+            @endif
           </div>
           <div>
             @if (Auth::user()->id == $post->user_id)
@@ -62,15 +68,9 @@
       <div class="w-100">
         <div class="modal-inner-title w-50 m-auto">
           <input type="text" name="post_title" placeholder="タイトル" class="w-100">
-          @if($errors->first('post_title'))
-          <span class="error_message">{{ $errors->first('post_title') }}</span>
-          @endif
         </div>
         <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
           <textarea placeholder="投稿内容" name="post_body" class="w-100"></textarea>
-          @if($errors->first('post_body'))
-          <span class="error_message">{{ $errors->first('post_body') }}</span>
-          @endif
         </div>
         <div class="w-50 m-auto edit-modal-btn d-flex">
           <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
