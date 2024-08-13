@@ -18,10 +18,14 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
-        $posts = Post::with('user', 'postComments')->get();
+        $posts = Post::with('user', 'postComments', 'likes')->get();
+        // Postモデルに()内のメソッドを定義したの意味
+        // PostテーブルとLikeテーブルの関係なので、1対多のリレーションが必要になる
         $categories = MainCategory::get();
         $like = new Like;
         $post_comment = new Post;
+
+
         if (!empty($request->keyword)) {
             $posts = Post::with('user', 'postComments')
                 ->where('post_title', 'like', '%' . $request->keyword . '%')
@@ -37,6 +41,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
+
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
@@ -134,17 +139,4 @@ class PostsController extends Controller
 
         return response()->json();
     }
-
-    // public function store(PostCreateRequest $request)
-    // // 投稿のバリデーション用のフォームリクエスト
-    // {
-    //     Post::create([
-    //         'post_category_id' => $request->post_category_id,
-    //         'post_title' => $request->post_title,
-    //         'post_body' => $request->post_body,
-    //         'user_id' => auth()->id(),
-    //     ]);
-
-    //     return redirect()->route('posts.index')->with('success', 'Post created successfully!');
-    // }
 }
