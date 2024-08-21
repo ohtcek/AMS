@@ -36,10 +36,10 @@ class PostFormRequest extends FormRequest
             // 'post_category_id.required' => 'カテゴリーを選んでください。',
             'post_category_id.exists' => '登録されているサブカテゴリーを選択してください。',
             'post_title.required' => 'タイトルは必須項目です。',
-            'post_title.string' => 'タイトルはは文字列で入力してください',
+            'post_title.string' => 'タイトルはは文字列で入力してください。',
             'post_title.max' => 'タイトルは100文字以内で入力してください。',
             'post_body.required' => '投稿内容は必須項目です。',
-            'post_body.string' => '投稿内容は文字列で入力してください',
+            'post_body.string' => '投稿内容は文字列で入力してください。',
             'post_body.max' => '最大文字数は5000文字です。',
         ];
     }

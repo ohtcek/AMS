@@ -25,7 +25,6 @@ class PostsController extends Controller
         $like = new Like;
         $post_comment = new Post;
 
-
         if (!empty($request->keyword)) {
             $posts = Post::with('user', 'postComments')
                 ->where('post_title', 'like', '%' . $request->keyword . '%')
@@ -89,11 +88,21 @@ class PostsController extends Controller
 
     public function commentCreate(Request $request)
     {
+        $request->validate(
+            ['comment' => 'required|string|max:250'],
+            [
+                'comment.required' => '入力してください。',
+                'comment.string' => '文字列で入力してください。',
+                'comment.max' => '250文字以内で入力してください。',
+            ]
+        );
+
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
             'comment' => $request->comment
         ]);
+
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
 

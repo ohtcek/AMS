@@ -25,6 +25,7 @@ class Post extends Model
     public function postComments()
     {
         return $this->hasMany('App\Models\Posts\PostComment');
+        // コメントの数のリレーション
     }
 
     public function subCategories()
