@@ -80,10 +80,51 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
+
+    // メインカテゴリー追加
     public function mainCategoryCreate(Request $request)
     {
+        $request->validate(
+            [
+                'main_category_name' => 'required|max:100|string|unique:main_categories,main_category',
+                // uniqueルールでは、重複が許されない=同じ名前を入れられない
+            ],
+            [
+                'main_category_name.required' => '必須項目です。',
+                'main_category_name.max' => '100文字以内で入力してください。',
+                'main_category_name.string' => '文字列で入力してください。',
+                'main_category_name.unique' => '同じ名前のカテゴリーは追加できません。',
+            ],
+        );
+
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
+    }
+
+    // サブカテゴリー追加
+    public function subCategoryCreate(Request $request)
+    {
+        $request->validate(
+            [
+                'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category',
+                'main_category_id' => 'required|exists:main_categories,id',
+            ],
+            [
+                'sub_category_name.required' => '必須項目です。',
+                'sub_category_name.max' => '100文字以内で入力してください。',
+                'sub_category_name.string' => '文字列で入力してください。',
+                'sub_category_name.unique' => '同じ名前のカテゴリーは追加できません。',
+                'main_category_id.required' => '必須項目です。',
+                'main_category_id.exists' => '登録されているメインカテゴリを選択してください。',
+            ]
+        );
+
+        SubCategory::create([
+            'main_category_id' => $request->main_category_id,
+            'sub_category' => $request->sub_category_name,
+        ]);
+
+        return back();
     }
 
     public function commentCreate(Request $request)
