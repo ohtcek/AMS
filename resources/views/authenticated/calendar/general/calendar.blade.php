@@ -16,19 +16,13 @@
   </div>
 </div>
 
-<!-- モーダル -->
-<div class="modal js-modal">
-  <div class="modal__bg js-modal-close"></div>
-  <div class="modal__content">
-    <form action="/post/update" method="post">
-      <textarea name="post" class="modal_post"></textarea>
-      <input type="hidden" name="id" class="modal_id" value="<?php $post->id ?>">
-      <br>
-      <input class="update-icon-modal" type="image" value="更新" src="/images/edit.png">
-      <!-- <button type=“submit”><img class=“edit-btn” src="/images/edit.png"></button> -->
-      {{ csrf_field() }}
-    </form>
-    <!-- <a class="js-modal-close" href="">閉じる</a> -->
+<div id="cancelModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>予約日: <span id="reservationDate"></span></p>
+    <p>予約時間: <span id="reservationTime"></span></p>
+    <button id="confirmCancel" class="btn btn-danger">キャンセルを確定</button>
   </div>
 </div>
+
 @endsection

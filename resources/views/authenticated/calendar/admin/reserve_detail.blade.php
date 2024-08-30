@@ -18,4 +18,14 @@
     </div>
   </div>
 </div>
+
+<!-- モーダル -->
+<div id="cancelModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>予約日: <span id="reservationDate"></span></p>
+    <p>予約時間: <span id="reservationTime"></span></p>
+    <button id="confirmCancel" class="btn btn-danger">キャンセルを確定</button>
+  </div>
+</div>
 @endsection
