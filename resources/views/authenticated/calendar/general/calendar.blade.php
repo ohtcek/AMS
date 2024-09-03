@@ -4,7 +4,6 @@
 <div class="vh-100 pt-5" style="background:#ECF1F6;">
   <div class="border w-75 m-auto pt-5 pb-5" style="border-radius:5px; background:#FFF;">
     <div class="w-75 m-auto border" style="border-radius:5px;">
-
       <p class="text-center">{{ $calendar->getTitle() }}</p>
       <div class="">
         {!! $calendar->render() !!}
@@ -16,12 +15,19 @@
   </div>
 </div>
 
+<!-- モーダル -->
 <div id="cancelModal" class="modal">
-  <div class="modal-content">
+  <div class="modal__content">
     <span class="close">&times;</span>
-    <p>予約日: <span id="reservationDate"></span></p>
-    <p>予約時間: <span id="reservationTime"></span></p>
-    <button id="confirmCancel" class="btn btn-danger">キャンセルを確定</button>
+    <p class="reservationDate"></p>
+    <!-- 予約日の取得、表示 -->
+    <p class="reservationTime"></p>
+    <!-- 予約時間の取得、表示　calendarVew.phpのinput buttonの中で送るデータを作ってる jsで定義 -->
+    <p>上記の時間をキャンセルしてもよろしいですか？</p>
+    <div class="modal-btn">
+      <button id="confirmClose" class="btn btn-close">閉じる</button>
+      <button id="confirmCancel" class="btn btn-danger">キャンセル</button>
+    </div>
   </div>
 </div>
 

@@ -4,6 +4,7 @@
 <div class="vh-100 d-flex" style="align-items:center; justify-content:center;">
   <div class="w-50 m-auto h-75">
     <p><span>日</span><span class="ml-3">部</span></p>
+
     <div class="h-75 border">
       <table class="">
         <tr class="text-center">
@@ -16,16 +17,6 @@
         </tr>
       </table>
     </div>
-  </div>
-</div>
-
-<!-- モーダル -->
-<div id="cancelModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>予約日: <span id="reservationDate"></span></p>
-    <p>予約時間: <span id="reservationTime"></span></p>
-    <button id="confirmCancel" class="btn btn-danger">キャンセルを確定</button>
   </div>
 </div>
 @endsection

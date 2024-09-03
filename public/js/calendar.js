@@ -1,15 +1,18 @@
 $(function () {
   // 予約済みの部のボタン（クラスml-3）が押されたら発火
-  $('.ml-3').on('click', function () {
+  $('.btn-danger').on('click', function () {
     // モーダルの表示
     $('.modal').fadeIn();
-    console.log('jQuery is loaded');
-    // 予約日や時間などのデータをモーダルに渡す
-    var date = $(this).attr('data-date');
-    var time = $(this).text(); // 部の情報を取得
 
-    $('#reservationDate').text(date);
-    $('#reservationTime').text(time);
+    // 予約日や時間などのデータをモーダルに渡す
+    var date = $(this).attr('date');
+    // var date = $(this).val();
+    var time = $(this).attr('time'); // 部の情報を取得
+    // 変数の定義
+
+    $('.reservationDate').text(date);
+    // span idだから#,classなら.で
+    $('.reservationTime').text(time);
 
     return false;
   });
