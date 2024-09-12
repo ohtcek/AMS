@@ -1,6 +1,6 @@
 $(function () {
   // 予約済みの部のボタン（クラスml-3）が押されたら発火
-  $('.btn-danger').on('click', function () {
+  $('.calendar-modal').on('click', function () {
     // モーダルの表示
     $('.modal').fadeIn();
 
@@ -14,11 +14,14 @@ $(function () {
     // span idだから#,classなら.で
     $('.reservationTime').text(time);
 
+    $('.hidden-date').val(date);
+    $('.hidden-part').val(time);
+
     return false;
   });
 
   // モーダルの閉じるボタンを押したらモーダルを閉じる
-  $('.close').on('click', function () {
+  $('.btn-close, .cross').on('click', function () {
     $('.modal').fadeOut();
     return false;
   });

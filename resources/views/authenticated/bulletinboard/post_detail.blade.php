@@ -69,6 +69,7 @@
     </div>
   </div>
 </div>
+
 <div class="modal js-modal">
   <!-- 投稿の編集 -->
   <div class="modal__bg js-modal-close"></div>
@@ -82,7 +83,7 @@
           <textarea placeholder="投稿内容" name="post_body" class="w-100"></textarea>
         </div>
         <div class="w-50 m-auto edit-modal-btn d-flex">
-          <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
+          <a class="btn btn-danger d-inline-block js-modal-close" href="">閉じる</a>
           <input type="hidden" class="edit-modal-hidden" name="post_id" value="">
           <input type="submit" class="btn btn-primary d-block" value="編集">
         </div>

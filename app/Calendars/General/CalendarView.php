@@ -54,6 +54,7 @@ class CalendarView
 
         if (in_array($day->everyDay(), $day->authReserveDay())) {
           $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part;
+          $reserveDate = $day->authReserveDate($day->everyDay())->first()->setting_reserve;
           if ($reservePart == 1) {
             $reservePart = "リモ1部";
           } else if ($reservePart == 2) {
@@ -66,12 +67,20 @@ class CalendarView
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
             $html[] = '<button type="submit"
-            class="btn btn-danger p-0 w-75"
+            class="btn btn-danger calendar-modal p-0 w-75"
             name="delete_date"
             style="font-size:12px"
-            time="予約時間:' . $reservePart . '"
-            date="時間:' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
-            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+
+            cancel-date="' . $reserveDate . '"
+            cancel-time="' .
+              $day->authReserveDate($day->everyDay())->first()->setting_part . '"
+
+            date="予約日:' . $reserveDate . '"
+            time="時間:' . $reservePart . '"
+            >'
+              . $reservePart .
+              '</button>';
+            $html[] = '<input type="hidden" name="getPart[]"  value="" form="reserveParts">';
           }
           // valueで送ってるからjsでvalue
         } else {
