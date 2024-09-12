@@ -53,7 +53,6 @@ class CalendarsController extends Controller
 
     public function delete(Request $request)
     {
-        // reserve
         DB::beginTransaction();
         try {
             $getPart = $request->getPart;
@@ -64,7 +63,6 @@ class CalendarsController extends Controller
             // キャンセルの時は一個ずつだから、ペアにする必要はない
             // foreach ($reserveDays as $key => $value) {
             // $reserveDays の各日付 ($key) と部数 ($value) のペアに対して繰り返し処理を行う。
-
             $reserve_settings = ReserveSettings::where('setting_reserve', $getDate)
                 ->where('setting_part', $getPart)
                 ->first();
