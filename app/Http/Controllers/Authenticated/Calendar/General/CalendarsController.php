@@ -29,9 +29,14 @@ class CalendarsController extends Controller
     {
         DB::beginTransaction();
         try {
-            $getPart = $request->getPart;
+
+
             $getDate = $request->getDate;
+            dd($getDate);
+            $getPart = $request->getPart;
+
             $reserveDays = array_filter(array_combine($getDate, $getPart));
+
             // 予約をまとめて取れるように配列にする
             foreach ($reserveDays as $key => $value) {
                 $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where(
@@ -43,6 +48,7 @@ class CalendarsController extends Controller
                 // where('setting_reserve', $key)->where('setting_part'→ReserveSettingsモデルの
                 // setting_reserveカラムの$key(送られてきたデータ(日付)を$keyにしてる　名前はなんでもいい)と、
                 // setting_partカラムの$value(送られてきた部)で一致させる
+
             }
             DB::commit();
         } catch (\Exception $e) {

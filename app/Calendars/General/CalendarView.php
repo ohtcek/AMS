@@ -83,6 +83,8 @@ class CalendarView
             $html[] = '<input type="hidden" name="getPart[]"  value="" form="reserveParts">';
           }
           // valueで送ってるからjsでvalue
+          // cancel-date="' . $reserveDate . '"はキャンセルするときに、カラムに入っている[数字のみ]と一致させる必要があるため、文字列にしない状態の数字を取得するもの。モーダルに表示させる予約日：⚪︎⚪︎は文字列なので、[date]として別の行で定義してる
+          // cancel-timeも、文字列ではなく数字のみの取得が必要なので、文字列にする前に取得していたやつをそのまま記述
         } else {
           $html[] = $day->selectPart($day->everyDay());
         }

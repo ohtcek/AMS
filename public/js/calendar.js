@@ -10,12 +10,15 @@ $(function () {
     var time = $(this).attr('time'); // 部の情報を取得
     // 変数の定義
 
+    var cancelDate = $(this).attr('cancel-date'); // 数字だけを取得（予約日）
+    var cancelTime = $(this).attr('cancel-time');
+
     $('.reservationDate').text(date);
     // span idだから#,classなら.で
     $('.reservationTime').text(time);
 
-    $('.hidden-date').val(date);
-    $('.hidden-part').val(time);
+    $('.hidden-date').val(cancelDate);
+    $('.hidden-part').val(cancelTime);
 
     return false;
   });
