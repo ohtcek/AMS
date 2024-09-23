@@ -31,6 +31,7 @@ class CalendarWeekDay
 
   function dayPartCounts($ymd)
   {
+    $date = now()->format('Y-m-d');
     $html = [];
     $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
     $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
@@ -38,7 +39,9 @@ class CalendarWeekDay
 
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1">1部<span style="margin-left: 20px;">' . count($one_part->users) . '</p>';
+      $html[] = '<p class="day_part m-0 pt-1">
+      <a href="' . route('calendar.admin.detail', ['date' => $date, 'part' => '1']) . '">1部</a>
+      <span style="margin-left: 20px;">' . count($one_part->users) . '</p>';
     }
     if ($two_part) {
       $html[] = '<p class="day_part m-0 pt-1">2部<span style="margin-left: 20px;">' . count($two_part->users) . '</p>';

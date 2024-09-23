@@ -29,11 +29,10 @@ class CalendarsController extends Controller
     {
         DB::beginTransaction();
         try {
-
-
             $getDate = $request->getDate;
-            dd($getDate);
             $getPart = $request->getPart;
+
+            dd($request);
 
             $reserveDays = array_filter(array_combine($getDate, $getPart));
 
@@ -72,7 +71,6 @@ class CalendarsController extends Controller
             $reserve_settings = ReserveSettings::where('setting_reserve', $getDate)
                 ->where('setting_part', $getPart)
                 ->first();
-            dd($reserve_settings);
             // 取得して持ってきたgetPart(部)がsetting_reserveと一緒かどうか
             // $reserve_settings->increment('limit_users');
             // reserveでdecrementを使う=予約の際予約枠の人数を減らす文
