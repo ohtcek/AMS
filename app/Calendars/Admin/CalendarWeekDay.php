@@ -40,17 +40,17 @@ class CalendarWeekDay
     $html[] = '<div class="text-left">';
     if ($one_part) {
       $html[] = '<p class="day_part m-0 pt-1">
-      <a href="' . route('calendar.admin.detail', ['date' => $date, 'part' => '1']) . '">1部</a>
+      <a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '1']) . '">1部</a>
       <span style="margin-left: 20px;">' . count($one_part->users) . '</p>';
     }
     if ($two_part) {
       $html[] = '<p class="day_part m-0 pt-1">
-      <a href="' . route('calendar.admin.detail', ['date' => $date, 'part' => '2']) . '">2部</a>
+      <a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '2']) . '">2部</a>
       <span style="margin-left: 20px;">' . count($two_part->users) . '</p>';
     }
     if ($three_part) {
       $html[] = '<p class="day_part m-0 pt-1">
-      <a href="' . route('calendar.admin.detail', ['date' => $date, 'part' => '3']) . '">3部</a>
+      <a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '3']) . '">3部</a>
       <span style="margin-left: 20px;">' . count($three_part->users) . '</p>';
     }
     $html[] = '</div>';
