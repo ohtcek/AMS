@@ -74,7 +74,7 @@ class CalendarWeekDay
       $html[] = '<option value="3">リモ3部(残り' . $three_part_frame . '枠)</option>';
     }
     $html[] = '</select>';
-    $html[] = $this->getDate();
+    // $html[] = $this->getDate();
     return implode('', $html);
   }
 

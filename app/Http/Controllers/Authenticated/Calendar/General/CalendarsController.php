@@ -31,9 +31,6 @@ class CalendarsController extends Controller
         try {
             $getDate = $request->getDate;
             $getPart = $request->getPart;
-
-            dd($request);
-
             $reserveDays = array_filter(array_combine($getDate, $getPart));
 
             // 予約をまとめて取れるように配列にする
