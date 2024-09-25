@@ -51,6 +51,7 @@ class UsersController extends Controller
     }
 
     public function searchUsers(Request $request)
+    // ユーザー検索　科目は一つでも当てはまれば表示されるようにする！
     {
         if ($request->input('category') === 'name') {
             $users = User::where('over_name', 'like', '%' . $request->input('keyword') . '%')
