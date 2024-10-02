@@ -3,7 +3,7 @@
 @section('content')
 <div class="vh-100 d-flex" style="align-items:center; justify-content:center;">
   <div class="w-50 m-auto h-75">
-    <p><span>日</span><span class="ml-3">部</span></p>
+    <p><span>{{ $date }}</span><span class="ml-3">{{ $part }}部</span></p>
 
     <div class="h-75 border">
       <table class="">
@@ -16,6 +16,20 @@
           <td class="w-25"></td>
           <td class="w-25"></td>
         </tr>
+        @foreach($reserveUsers as $reserve)
+        <!-- CalendarsControllerで予約したユーザーの情報を集めた際の変数$reserveUsers -->
+        @foreach($reserve->users as $user)
+        <tr class="text-center">
+          <td>{{ $user->id }}</td>
+          <td>{{ $user->over_name }} {{ $user->under_name }}</td>
+          <td>
+            @if($reserve->location === 'remote') {{-- リモートかどうか --}}
+            リモート
+            @endif
+          </td>
+        </tr>
+        @endforeach
+        @endforeach
       </table>
     </div>
   </div>

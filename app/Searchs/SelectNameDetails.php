@@ -20,6 +20,7 @@ class SelectNameDetails implements DisplayUsers
     } else {
       $role = array($role);
     }
+
     $users = User::with('subjects')
       ->where(function ($q) use ($keyword) {
         $q->Where('over_name', 'like', '%' . $keyword . '%')
@@ -32,11 +33,8 @@ class SelectNameDetails implements DisplayUsers
           ->whereIn('role', $role);
       })
       ->whereHas('subjects', function ($q) use ($subjects) {
-        // if (!is_array($subjects)) {
-        //   $subjects = array($subjects);  // 配列でない場合、配列に変換　38行目のwhereInは、複数の条件で検索するときに使用するものだが、これを使う場合はarrayで配列に変換しなければいけない
-        // }
-        $q->whereIn('subjects.id', [1, 2, 3]);
-        // 上のif文より、[]内に配列を記述した方がシンプルだったのでこっちにした
+        $q->whereIn('subjects.id', $subjects);
+        // WhereInに変えるだけ！本来は配列を記述するけど、今回はUsersControllerに記述があるので上にif文を記述しなくて良い
       })
       ->orderBy('over_name_kana', $updown)->get();
     return $users;
