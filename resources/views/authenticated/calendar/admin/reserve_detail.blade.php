@@ -22,11 +22,7 @@
         <tr class="text-center">
           <td>{{ $user->id }}</td>
           <td>{{ $user->over_name }} {{ $user->under_name }}</td>
-          <td>
-            @if($reserve->location === 'remote') {{-- リモートかどうか --}}
-            リモート
-            @endif
-          </td>
+          <td>リモート</td>
         </tr>
         @endforeach
         @endforeach
