@@ -36,22 +36,30 @@ class CalendarView
     $html[] = '</tr>';
     $html[] = '</thead>';
     $html[] = '<tbody>';
+
+    $startDay = $this->carbon->copy()->startOfMonth();
+    $today = Carbon::today();
+    // 今日の日付を定義
+
     $weeks = $this->getWeeks();
     foreach ($weeks as $week) {
       $html[] = '<tr class="' . $week->getClassName() . '">';
-
       $days = $week->getDays();
       foreach ($days as $day) {
+        // $dayDate = Carbon::parse($day->everyDay());
+        // 日付をCarbonインスタンスに変換
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
 
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          $html[] = '<td class="calendar-td">';
+          $html[] = '<td class="calendar-td past-day border">';
         } else {
           $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
         }
         $html[] = $day->render();
+        // 過去日なら背景色をグレーにする
 
+        // 予約している場合(今後も過去も含めて)
         if (in_array($day->everyDay(), $day->authReserveDay())) {
           $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part;
           $reserveDate = $day->authReserveDate($day->everyDay())->first()->setting_reserve;
@@ -62,10 +70,18 @@ class CalendarView
           } else if ($reservePart == 3) {
             $reservePart = "リモ3部";
           }
+
+          // 過去日
           if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px"></p>';
+            $partWithoutPrefix = str_replace('リモ', '', $reservePart);
+            // リモ〜部の「リモ」部分をなくして表示させる定義
+            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">' . $partWithoutPrefix . '参加</p>';
+            // 参加した部数を表示させる　$reservePartに代入させる
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
-          } else {
+          }
+
+          // 今日以降
+          else {
             $html[] = '<button type="submit"
             class="btn btn-danger calendar-modal p-0 w-75"
             name="delete_date"
@@ -85,8 +101,16 @@ class CalendarView
           // valueで送ってるからjsでvalue
           // cancel-date="' . $reserveDate . '"はキャンセルするときに、カラムに入っている[数字のみ]と一致させる必要があるため、文字列にしない状態の数字を取得するもの。モーダルに表示させる予約日：⚪︎⚪︎は文字列なので、[date]として別の行で定義してる
           // cancel-timeも、文字列ではなく数字のみの取得が必要なので、文字列にする前に取得していたやつをそのまま記述
-        } else {
-          $html[] = $day->selectPart($day->everyDay());
+        }
+
+        // 予約してない場合
+        else {
+          // ↓このif文で過去だったら受付終了と表示させ、過去じゃなかったら(elseだったら)partの四角を表示させる
+          if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+          } else {
+            $html[] = $day->selectPart($day->everyDay());
+          }
         }
         $html[] = $day->getDate();
         $html[] = '</td>';
@@ -102,7 +126,7 @@ class CalendarView
     return implode('', $html);
   }
 
-  protected function getWeeks()
+  public function getWeeks()
   {
     $weeks = [];
     $firstDay = $this->carbon->copy()->firstOfMonth();

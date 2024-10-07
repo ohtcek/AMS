@@ -30,7 +30,7 @@ class CalendarsController extends Controller
             // setting_partのpartを取ってくる
             ->get();
         return view('authenticated.calendar.admin.reserve_detail', compact('reserveUsers', 'date', 'part'));
-        // ビューにデータを渡す
+        // ビュー(authenticated.calendar.admin.reserve_detail)にデータを渡す
     }
 
     public function reserveSettings()

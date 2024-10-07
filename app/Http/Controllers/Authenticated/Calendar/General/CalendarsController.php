@@ -8,6 +8,7 @@ use App\Calendars\General\CalendarView;
 use App\Models\Calendars\ReserveSettings;
 use App\Models\Calendars\Calendar;
 use App\Models\USers\User;
+use Carbon\Carbon;
 use Auth;
 use DB;
 
@@ -16,13 +17,9 @@ class CalendarsController extends Controller
     public function show()
     {
         $calendar = new CalendarView(time());
-        return view('authenticated.calendar.general.calendar', compact('calendar'));
-    }
 
-    public function isPast($date)
-    {
-        // 過去の日付かチェックするメソッド
-        return $date < now()->startOfDay();
+        $today = Carbon::today();
+        return view('authenticated.calendar.general.calendar', compact('calendar'));
     }
 
     public function reserve(Request $request)
