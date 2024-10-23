@@ -63,7 +63,11 @@
         <li class="m-10">
           <div class="main-category d-flex m-20">
             <p class="category-header">{{ $category->main_category }}</p>
+
+            @if($category->subCategories->isNotEmpty())
+            <!-- サブカテゴリーがある場合のみ矢印を表示 -->
             <span class="category-v">⌄</span>
+            @endif
           </div>
           <!-- メインカテゴリーの記述 -->
           <ul class="sub-category-list" style="display: none;">
