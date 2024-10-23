@@ -1,8 +1,8 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="vh-100 d-flex" style="align-items:center; justify-content:center;">
-  <div class="w-50 m-auto h-75">
+<div class="vh-100 d-flex" style="align-items:center; justify-content:center; margin-left: 180px;">
+  <div class="w-75 m-auto h-75">
     <p><span>{{ \Carbon\Carbon::parse($date)->format('Y年n月j日') }}</span><span class="ml-3">{{ $part }}部</span></p>
 
     <div class="table-about">
