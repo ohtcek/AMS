@@ -134,13 +134,15 @@ class PostsController extends Controller
         $request->validate(
             [
                 'main_category_name' => 'required|max:100|string|unique:main_categories,main_category',
+                'main_category_id' => 'required'
                 // uniqueルールでは、重複が許されない=同じ名前を入れられない
             ],
             [
-                'main_category_name.required' => '必須項目です。',
+                'main_category_name.required' => 'メインカテゴリーは必ず入力してください。',
                 'main_category_name.max' => '100文字以内で入力してください。',
                 'main_category_name.string' => '文字列で入力してください。',
                 'main_category_name.unique' => '同じ名前のカテゴリーは追加できません。',
+                'main_category_id.required' => 'メインカテゴリーは必ず入力してください。',
             ],
         );
 
@@ -154,14 +156,13 @@ class PostsController extends Controller
         $request->validate(
             [
                 'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category',
-                'main_category_id' => 'required|exists:main_categories,id',
+                'main_category_id' => 'exists:main_categories,id',
             ],
             [
-                'sub_category_name.required' => '必須項目です。',
+                'sub_category_name.required' => 'サブカテゴリーは必ず入力してください。',
                 'sub_category_name.max' => '100文字以内で入力してください。',
                 'sub_category_name.string' => '文字列で入力してください。',
                 'sub_category_name.unique' => '同じ名前のカテゴリーは追加できません。',
-                'main_category_id.required' => '必須項目です。',
                 'main_category_id.exists' => '登録されているメインカテゴリを選択してください。',
             ]
         );
@@ -179,7 +180,7 @@ class PostsController extends Controller
         $request->validate(
             ['comment' => 'required|string|max:250'],
             [
-                'comment.required' => '入力してください。',
+                'comment.required' => 'コメントは必ず入力してください。',
                 'comment.string' => '文字列で入力してください。',
                 'comment.max' => '250文字以内で入力してください。',
             ]

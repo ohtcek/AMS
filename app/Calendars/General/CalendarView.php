@@ -31,8 +31,8 @@ class CalendarView
     $html[] = '<th>水</th>';
     $html[] = '<th>木</th>';
     $html[] = '<th>金</th>';
-    $html[] = '<th>土</th>';
-    $html[] = '<th>日</th>';
+    $html[] = '<th style="color: blue;">土</th>';
+    $html[] = '<th style="color: red;">日</th>';
     $html[] = '</tr>';
     $html[] = '</thead>';
     $html[] = '<tbody>';
@@ -51,10 +51,18 @@ class CalendarView
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
 
+        $isSaturday = $day->getClassName() == 'day-sat'; // 土曜日かどうかを確認
+        $isSunday = $day->getClassName() == 'day-sun';
+
+        $class = $day->getClassName();
+
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          $html[] = '<td class="calendar-td past-day border">';
+          $class = 'past-day';
+          if ($isSaturday) $class .= ' day-sat';
+          if ($isSunday) $class .= ' day-sun';
+          $html[] = '<td class="calendar-td  ' . $class . '  past-day">';
         } else {
-          $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
+          $html[] = '<td class="calendar-td ' . $day->getClassName() . ' calendar-cell">';
         }
         $html[] = $day->render();
         // 過去日なら背景色をグレーにする
@@ -75,7 +83,7 @@ class CalendarView
           if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
             $partWithoutPrefix = str_replace('リモ', '', $reservePart);
             // リモ〜部の「リモ」部分をなくして表示させる定義
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">' . $partWithoutPrefix . '参加</p>';
+            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px; margin-top: 10px !important;">' . $partWithoutPrefix . '参加</p>';
             // 参加した部数を表示させる　$reservePartに代入させる
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
@@ -83,9 +91,9 @@ class CalendarView
           // 今日以降
           else {
             $html[] = '<button type="submit"
-            class="btn btn-danger calendar-modal p-0 w-75"
+            class="btn btn-danger calendar-modal p-0 w-75 calendar-cell"
             name="delete_date"
-            style="font-size:12px"
+            style="font-size:12px;  margin-top: 10px !important;"
 
             cancel-date="' . $reserveDate . '"
             cancel-time="' .
@@ -96,7 +104,7 @@ class CalendarView
             >'
               . $reservePart .
               '</button>';
-            $html[] = '<input type="hidden" name="getPart[]"  value="" form="reserveParts">';
+            $html[] = '<input type="hidden" name="getPart[]" class="calendar-cell" value="" form="reserveParts">';
           }
           // valueで送ってるからjsでvalue
           // cancel-date="' . $reserveDate . '"はキャンセルするときに、カラムに入っている[数字のみ]と一致させる必要があるため、文字列にしない状態の数字を取得するもの。モーダルに表示させる予約日：⚪︎⚪︎は文字列なので、[date]として別の行で定義してる
@@ -107,7 +115,9 @@ class CalendarView
         else {
           // ↓このif文で過去だったら受付終了と表示させ、過去じゃなかったら(elseだったら)partの四角を表示させる
           if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+            $html[] = '<p class="m-auto p-0 w-75 calendar-reserve-end" style="margin-top: 10px !important;">受付終了</p>';
+            $html[] = '<input type="hidden" name="getPart[]"  value="" form="reserveParts">';
+            // 過去の「予約している日」と「過去の予約していない日」それぞれでgetPartを送らないと受け取れない
           } else {
             $html[] = $day->selectPart($day->everyDay());
           }

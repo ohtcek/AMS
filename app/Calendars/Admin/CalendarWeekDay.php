@@ -21,7 +21,20 @@ class CalendarWeekDay
 
   function render()
   {
-    return '<p class="day">' . $this->carbon->format("j") . '日</p>';
+    $class = $this->getClassName(); // 日付のクラスを取得
+    $isSaturday = $class == 'day-sat'; // 土曜日
+    $isSunday = $class == 'day-sun'; // 日曜日
+
+    $colorStyle = ''; // デフォルトのスタイルは空
+
+    if ($isSaturday) {
+      $colorStyle = 'color: blue;'; // 土曜日なら文字色を青にする
+    } elseif ($isSunday) {
+      $colorStyle = 'color: red;'; // 日曜日なら文字色を赤に
+    }
+
+    // 日付表示の<p>タグにスタイルを適用
+    return '<p class="day" style="' . $colorStyle . '">' . $this->carbon->format("j") . '日</p>';
   }
 
   function everyDay()
@@ -40,17 +53,17 @@ class CalendarWeekDay
     $html[] = '<div class="text-left">';
     if ($one_part) {
       $html[] = '<p class="day_part m-0 pt-1">
-      <a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '1']) . '">1部</a>
+      <a style="color: #4CA8CE; margin-right:10px;" href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '1']) . '">1部</a>
       <span style="margin-left: 20px;">' . count($one_part->users) . '</p>';
     }
     if ($two_part) {
       $html[] = '<p class="day_part m-0 pt-1">
-      <a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '2']) . '">2部</a>
+      <a style="color: #4CA8CE; margin-right:10px;" href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '2']) . '">2部</a>
       <span style="margin-left: 20px;">' . count($two_part->users) . '</p>';
     }
     if ($three_part) {
       $html[] = '<p class="day_part m-0 pt-1">
-      <a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '3']) . '">3部</a>
+      <a style="color: #4CA8CE; margin-right:10px;" href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '3']) . '">3部</a>
       <span style="margin-left: 20px;">' . count($three_part->users) . '</p>';
     }
     $html[] = '</div>';
