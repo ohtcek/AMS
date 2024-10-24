@@ -14,27 +14,29 @@
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-color: #EDF1F6">
   <form action="{{ route('registerPost') }}" method="POST">
-    <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-      <div class="w-25 vh-75 border p-3">
+    <div class="w-100 d-flex" style="align-items:center; justify-content:center;">
+      <div class="w-25 vh-75 p-3" style="background-color: #FFF; margin:20px 0 20px 0;">
         <div class="register_form">
-          <div class="d-flex mt-3" style="justify-content:space-between">
 
-            @if($errors->first('over_name'))
-            <span class="error_message">{{ $errors->first('over_name') }}</span>
-            @endif
-            <div class="" style="width:140px">
+          <!-- エラーメッセージ -->
+          @if($errors->first('over_name'))
+          <span class="error_message">{{ $errors->first('over_name') }}</span>
+          @endif
+          @if($errors->first('under_name'))
+          <span class="error_message">{{ $errors->first('under_name') }}</span>
+          @endif
+
+          <div class="d-flex mt-3" style="justify-content:space-between">
+            <div style="width: 45%; position: relative;">
               <label class="d-block m-0" style="font-size:13px">姓</label>
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
               </div>
             </div>
 
-            @if($errors->first('under_name'))
-            <span class="error_message">{{ $errors->first('under_name') }}</span>
-            @endif
-            <div class="" style="width:140px">
+            <div class="" style="">
               <label class=" d-block m-0" style="font-size:13px">名</label>
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 under_name" name="under_name">
@@ -42,21 +44,23 @@
             </div>
           </div>
 
+          <!-- エラーメッセージ -->
           @if($errors->first('over_name_kana'))
           <span class="error_message">{{ $errors->first('over_name_kana') }}</span>
           @endif
-          <div class="d-flex mt-3" style="justify-content:space-between">
-            <div class="" style="width:140px">
+          @if($errors->first('under_name_kana'))
+          <span class="error_message">{{ $errors->first('under_name_kana') }}</span>
+          @endif
+
+          <div class="d-flex mt-3" style="justify-content:space-between;">
+            <div style="width: 45%; position: relative;">
               <label class="d-block m-0" style="font-size:13px">セイ</label>
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 over_name_kana" name="over_name_kana">
               </div>
             </div>
 
-            @if($errors->first('under_name_kana'))
-            <span class="error_message">{{ $errors->first('under_name_kana') }}</span>
-            @endif
-            <div class="" style="width:140px">
+            <div class="">
               <label class="d-block m-0" style="font-size:13px">メイ</label>
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 under_name_kana" name="under_name_kana">

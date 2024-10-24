@@ -379,7 +379,7 @@ input[type="text"] {
 
 .un_like,
 .un_like_btn {
-  color: #E2254D;
+  /* color: #E2254D; */
 }
 
 .error_message {

@@ -27,7 +27,7 @@
             <div class="post_status">
               <!-- いいね数の表示 -->
               @if(Auth::user()->is_Like($post->id))
-              <p class=" m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
+              <p class=" m-0"><i class="far fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
                 <span class="like_counts{{ $post->id }}">{{ $post->likes->count() }}</span>
                 <!-- Post.php(モデル)で記述のあるlikesメソッドで数を取得してるのをとってきてる -->
               </p>

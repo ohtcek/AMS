@@ -65,3 +65,17 @@ $('.js-modal-close').on('click', function () {
   $('.js-modal').fadeOut();
   return false;
 });
+
+$(document).ready(function () {
+  // グレーのハートをクリックしたら赤いハートに変更
+  $('.fa-heart').on('click', function () {
+    // fas クラスがあれば far に変更し、色をグレーにする
+    if ($(this).hasClass('fas')) {
+      $(this).removeClass('fas').addClass('far').css('color', '#999'); // グレー
+    }
+    // far クラスがあれば fas に変更し、色を赤にする
+    else if ($(this).hasClass('far')) {
+      $(this).removeClass('far').addClass('fas').css('color', '#E2254D'); // 赤
+    }
+  });
+});
