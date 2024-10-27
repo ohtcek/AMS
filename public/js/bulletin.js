@@ -67,6 +67,7 @@ $('.js-modal-close').on('click', function () {
 });
 
 $(document).ready(function () {
+
   // グレーのハートをクリックしたら赤いハートに変更
   $('.fa-heart').on('click', function () {
     // fas クラスがあれば far に変更し、色をグレーにする
